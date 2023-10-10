@@ -1,10 +1,9 @@
 
 
 class Jogador:
-    def __init__(self, nome: str, nascimento: str, pontos,)
+    def __init__(self, nome: str, nascimento: str) #adicionar pontos futuramente
         self.__nome = nome
         self.__nascimento =nascimento
-        self.__pontos = pontos
 
     @property
     def nome(self):
@@ -22,10 +21,3 @@ class Jogador:
     def nascimento(self, nascimento):
         self.__nascimento = nascimento
     
-    @property
-    def pontos(self):
-        return self.__pontos
-    
-    @pontos.setter
-    def pontos(self, pontos):
-        self.__pontos = pontos
