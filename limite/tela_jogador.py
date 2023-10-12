@@ -18,7 +18,7 @@ class TelaJogador():
         print("--------CADASTRO JOGADOR--------")
         jogador = input("Nome do Jogador: ")
         data = input("Data de Nascimento do Jogador (Formato DDMMAAAA): ")
-        print("JOAGDOR CADASTRADO COM SUCESSO!")
+        print("JOGADOR CADASTRADO COM SUCESSO!")
         return jogador, data
     
     def reatribui_dados_jogador(self):
