@@ -1,8 +1,7 @@
-from controle.controlador_jogador import ControladorJogador
 
 class TelaJogador():
     def tela_opcoes(self):
-        print("--------CADASTRO DO JOGADOR--------")
+        print("\n--------CADASTRO DO JOGADOR--------")
         print("ESCOLHA A OPÇÃO DESEJADA")
         print("1 - Incluir Jogador")
         print("2 - Alterar Dados do Jogador")
@@ -10,7 +9,8 @@ class TelaJogador():
         print("4 - Excluir Jogador")
         print("0 - Retornar")
 
-        opcao = int(input("Escolha sua opção: "))
+        opcao = int(input("\nEscolha sua opção: "))
+        print()
         return opcao
     
 
@@ -18,10 +18,27 @@ class TelaJogador():
         print("--------CADASTRO JOGADOR--------")
         jogador = input("Nome do Jogador: ")
         data = input("Data de Nascimento do Jogador (Formato DDMMAAAA): ")
-        
-        return {"jogador": jogador, "data": data}
+        print("JOAGDOR CADASTRADO COM SUCESSO!")
+        return jogador, data
     
-    def mostra_jogador(self):
+    def reatribui_dados_jogador(self):
+        print("--------ALTERAÇÃO JOGADOR--------")
+        jogador = input("Novo Nome do Jogador: ")
+        data = input("Nova Data de Nascimento do Jogador (Formato DDMMAAAA): ")
+        print("DADOS ALTERADOS COM SUCESSO!")
+        return jogador, data
+
+    def mostra_jogador(self, jogadores):
         print("--------LISTA DE JOGADORES--------")
-        for jogador in ControladorJogador.jogadores:
-            print(jogador)
+        for jogador in jogadores:
+            print(f"NOME: {jogador.nome} | DATA DE NASCIMENTO: {jogador.nascimento}")
+            print()
+    
+    def seleciona_jogador(self):
+        print("--------SELECIONE O JOGADOR--------")
+        jogador = input("Nome do Jogador: ")
+        return jogador
+
+    def mostra_mensagem(self, mensagem):
+        print(mensagem)
+    

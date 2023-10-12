@@ -1,3 +1,4 @@
 
 
-class ControladorJogo:
+class ControladorJogo():
+    pass

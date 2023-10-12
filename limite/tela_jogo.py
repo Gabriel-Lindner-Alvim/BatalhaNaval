@@ -1,3 +1,4 @@
 
 
 class TelaJogo():
+    pass
