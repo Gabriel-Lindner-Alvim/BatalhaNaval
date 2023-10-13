@@ -1,4 +1,6 @@
 
+
+
 class TelaJogador():
     def tela_opcoes(self):
         print("\n--------CADASTRO DO JOGADOR--------")
