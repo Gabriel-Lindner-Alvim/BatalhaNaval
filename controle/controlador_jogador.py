@@ -1,5 +1,6 @@
 from limite.tela_jogador import TelaJogador
-from entidade.Jogador import Jogador
+from entidade.jogador import Jogador
+
 
 class ControladorJogador():
     def __init__(self, controlador_sistema):
