@@ -26,25 +26,52 @@ class TelaOceano():
                 return tamanho_matriz
                 
     def posicionar_embarcacoes(self):
-        print("-------POSICIONAR EMBARCAÇOES-------")
+        print("-------POSICIONAR EMBARCAÇÕES-------")
+        print("1 - Posicionar Botes")
+        print("2 - Posicionar Submarinos")
+        print("3 - Posicionar Fragatas")
+        print("4 - Posicionar Porta-Aviões")
+        print("0 - Retornar")
+        
+        opcao = int(input("\nEscolha sua opção: "))
         print()
-        for a in range (1,4):
-            print(f"POSICIONANDO BOTE nº {a}: ")
-            linha_bote = int(input("DIGITE A LINHA: "))
-            coluna_bote = int(input("DIGITE A COLUNA: "))
-            print()
-        for b in range (1,3):
-            print(f"POSICIONANDO SUBMARINO nº {b}: ")
-            linha_submarino = int(input("DIGITE A LINHA: "))
-            coluna_submarino = int(input("DIGITE A COLUNA: "))
-            print()
-        for c in range (1,3):
-            print(f"POSICIONANDO FRAGATA nº {c}: ")
-            linha_fragata = int(input("DIGITE A LINHA: "))
-            coluna_fragata = int(input("DIGITE A COLUNA: "))
-            print()
-        for d in range (1,2):
-            print(f"POSICIONANDO PORTA-AVIÕES (ÚNICO): ")
-            linha_porta_aviao = int(input("DIGITE A LINHA: "))
-            coluna_porta_aviao = int(input("DIGITE A COLUNA: "))
-            print()
+        return opcao
+    
+    def posicionar_bote(self):
+        print("--------POSICIONAR BOTE--------")
+        print(f"Posicionar Bote (1 posição)")
+        linha_bote = int(input("Digite a linha do bote: "))
+        coluna_bote = int(input("Digite a coluna do bote: "))
+        print()
+        return linha_bote, coluna_bote
+    
+    def posicionar_submarino(self):
+        print("--------POSICIONAR SUBMARINO--------")
+        print(f"Posicionar Submarino (2 posições))")
+        linha_proa_submarino = int(input("Digite a linha da posição inicial do submarino: "))
+        coluna_proa_submarino = int(input("Digite a coluna da posição inicial do submarino: "))
+        linha_popa_submarino = int(input("Digite a linha da posição final do submarino: "))
+        coluna_popa_submarino = int(input("Digite a coluna da posição final do submarino: "))
+        print()
+        return linha_proa_submarino, coluna_proa_submarino, linha_popa_submarino, coluna_popa_submarino
+    
+    def posicionar_fragata(self):
+        print("--------POSICIONAR FRAGATA--------")
+        print(f"Posicionar Fragata (3 posições)")
+        linha_proa_fragata = int(input("Digite a linha da posição inicial da fragata: "))
+        coluna_proa_fragata = int(input("Digite a coluna da posição inicial da fragata: "))
+        linha_popa_fragata = int(input("Digite a coluna da posição final da fragata: "))
+        coluna_popa_fragata = int(input("Digite a coluna da posição final da fragata: "))
+        print()
+        return linha_proa_fragata, coluna_proa_fragata, linha_popa_fragata, coluna_popa_fragata
+    
+    def posicionar_porta_avioes(self):
+        print("--------POSICIONAR PORTA-AVIÕES--------")
+        print(f"Posicionar Porta-Aviões (4 posições)")
+        linha_proa_porta_avioes = int(input("Digite a linha da posição inicial do porta-aviões: "))
+        coluna_proa_porta_avioes = int(input("Digite a coluna da posição inicial do porta-aviões: "))
+        linha_popa_porta_avioes = int(input("Digite a linha da posição final do porta-aviões: "))
+        coluna_popa_porta_avioes = int(input("Digite a coluna da posição final do porta-aviões: "))
+
+        print()
+        return linha_proa_porta_avioes, coluna_proa_porta_avioes, linha_popa_porta_avioes, coluna_popa_porta_avioes

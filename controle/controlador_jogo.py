@@ -1,4 +1,4 @@
-from entidade.jogo import Jogo
+from entidade.Jogo import Jogo
 from limite.tela_jogo import TelaJogo
 from controle.controlador_oceano import ControladorOceano
 
