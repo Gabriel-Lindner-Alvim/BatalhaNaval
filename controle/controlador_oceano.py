@@ -6,7 +6,6 @@ import random
 class ControladorOceano():
     def __init__(self, controlador_jogo):
         self.__tela_oceano = TelaOceano()
-        self.__controlador_jogo = controlador_jogo
         self.__oceanos_jogador = []
         self.__oceanos_computador = []
         self.__tamanho = None
@@ -23,7 +22,7 @@ class ControladorOceano():
         for i in range(1, tamanho):
             matriz[i][0] = str(i)
         self.__oceanos_jogador.append(matriz)
-        oceano = Oceano(tamanho, matriz)
+        #oceano = Oceano(tamanho, matriz)
 
         for i in range(1, 4):
             while True:
@@ -293,7 +292,7 @@ class ControladorOceano():
         for matriz in self.__oceanos_computador:
             if matriz[linha_tiro][coluna_tiro] == 'B':
                 matriz[linha_tiro][coluna_tiro] = 'X'
-                self.__pontos += 3
+                self.__pontos += 4
                 return "Você afundou um Bote!"
             elif matriz[linha_tiro][coluna_tiro] == 'S':
                 matriz[linha_tiro][coluna_tiro] = 'X'
@@ -303,7 +302,27 @@ class ControladorOceano():
                 return "Você atingiu uma Fragata!"
             elif matriz[linha_tiro][coluna_tiro] == 'A':
                 matriz[linha_tiro][coluna_tiro] = 'X'
-                return "Você atingiu um Porta-Aviões!"
+                return "Você atingiu o Porta-Aviões!"
             else:
                 matriz[linha_tiro][coluna_tiro] = 'X'
                 return "Você não atingiu uma embarcação!"
+    
+    def atirar_computador(self):
+        linha_tiro = random.randint(1, self.__tamanho - 1)
+        coluna_tiro = random.randint(1, self.__tamanho - 1)
+        for matriz in self.__oceanos_jogador:
+            if matriz[linha_tiro][coluna_tiro] == 'B':
+                matriz[linha_tiro][coluna_tiro] = 'X'
+                return "O computador afundou um Bote!"
+            elif matriz[linha_tiro][coluna_tiro] == 'S':
+                matriz[linha_tiro][coluna_tiro] = 'X'
+                return "O computador atingiu um Submarino!"
+            elif matriz[linha_tiro][coluna_tiro] == 'F':
+                matriz[linha_tiro][coluna_tiro] = 'X'
+                return "O computador atingiu uma Fragata!"
+            elif matriz[linha_tiro][coluna_tiro] == 'A':
+                matriz[linha_tiro][coluna_tiro] = 'X'
+                return "O computador atingiu o Porta-Aviões!"
+            else:
+                matriz[linha_tiro][coluna_tiro] = 'X'
+                return "O computador não atingiu uma embarcação!"

@@ -16,7 +16,10 @@ class ControladorPrincipal():
         self.__controlador_jogador.abre_tela_jogador()
     
     def abre_jogo(self):
-        self.__controlador_jogo.partida()
+        if self.__controlador_jogador.verifica_se_existe_jogador() == True:
+            self.__controlador_jogo.partida()
+        else:
+            pass
 
     def encerra_sistema(self):
         exit(0)

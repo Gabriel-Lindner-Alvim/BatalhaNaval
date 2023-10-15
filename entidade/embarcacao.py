@@ -18,8 +18,8 @@ class Embarcacao(ABC):
 
     @property
     def quantidade_embarcacao(self):
-        return self.__quantidade_embracacao
+        return self.__quantidade_embarcacao
     
     @quantidade_embarcacao.setter
     def quantidade_embarcacao(self, quantidade_embarcacao):
-        self.__quantidade_embracacao = quantidade_embarcacao
+        self.__quantidade_embarcacao = quantidade_embarcacao

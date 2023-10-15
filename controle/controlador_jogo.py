@@ -31,6 +31,8 @@ class ControladorJogo():
                 self.__tela_jogo.mostra_mensagem(self.__historico_partida)
             tiro = self.__controlador_oceano.atirar(linha_tiro, coluna_tiro)
             self.__tela_jogo.mostra_mensagem(tiro)
+            tiro_computador = self.__controlador_oceano.atirar_computador()
+            self.__tela_jogo.mostra_mensagem(tiro_computador)
             self.__controlador_oceano.mostra_oceano_jogador()
             self.__controlador_oceano.mostra_oceano_computador()
 

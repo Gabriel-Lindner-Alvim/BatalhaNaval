@@ -7,6 +7,7 @@ class ControladorJogador():
         self.__controlador_sistema = controlador_sistema
         self.__tela_jogador = TelaJogador()
         self.__jogadores = [Jogador("Gabriel","23052005"), Jogador("Thiago", "18112004")  ]
+        self.__pontos = 0
 
     
     @property
@@ -23,17 +24,6 @@ class ControladorJogador():
           if(j.nome == nome):
             return j
         return None
-    
-
-    def log_in(self):
-        usuario, senha = self.__tela_jogador.tela_log_in()
-        verificador = False
-        for jogador in self.__jogadores:
-            if jogador.nome == usuario and jogador.nascimento == senha:
-                self.__tela_jogador.mostra_mensagem("LOG IN REALIZADO COM SUCESSO")
-                verificador = True
-        if verificador == False:
-            self.__tela_jogador.mostra_mensagem("ATENÇÃO: NOME DO JOGADOR OU SENHA INCORRETOS")
 
     def incluir_jogador(self):
         nome, data = self.__tela_jogador.atribui_dados_jogador()
@@ -66,12 +56,22 @@ class ControladorJogador():
         else:
           self.__tela_jogador.mostra_mensagem("ATENÇÃO: JOGADOR INEXISTENTE")
 
+    
+    def verifica_se_existe_jogador(self):
+        nome_jogador = self.__tela_jogador.seleciona_jogador()
+        jogador = self.pega_jogador_por_nome(nome_jogador)
+        if(jogador is not None):
+          return True
+        else:
+          self.__tela_jogador.mostra_mensagem("ATENÇÃO: JOGADOR INEXISTENTE")
+          return False
+    
     def retornar(self):
            self.__controlador_sistema.abre_tela()
 
 
     def abre_tela_jogador(self):
-        lista_opcoes = {1: self.log_in ,2: self.incluir_jogador, 3: self.alterar_jogador, 4: self.lista_jogadores, 5: self.excluir_jogador, 0: self.retornar} #adicionar ranking jogador/pontos, log in e excluir jogador.
+        lista_opcoes = {1: self.incluir_jogador, 2: self.alterar_jogador, 3: self.lista_jogadores, 4: self.excluir_jogador, 0: self.retornar} #adicionar ranking jogador/pontos, log in e excluir jogador.
         continua = True
         while continua:
             lista_opcoes[self.__tela_jogador.tela_opcoes()]()
