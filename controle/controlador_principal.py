@@ -1,7 +1,7 @@
 from limite.tela_principal import TelaPrincipal
 from controle.controlador_jogador import ControladorJogador 
 from controle.controlador_jogo import ControladorJogo
- 
+
 
 class ControladorPrincipal():
     def __init__(self):
@@ -16,7 +16,7 @@ class ControladorPrincipal():
         self.__controlador_jogador.abre_tela_jogador()
     
     def abre_jogo(self):
-        self.__controlador_jogo.abre_tela_jogo()
+        self.__controlador_jogo.partida()
 
     def encerra_sistema(self):
         exit(0)
