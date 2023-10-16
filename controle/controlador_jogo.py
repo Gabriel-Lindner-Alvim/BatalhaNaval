@@ -32,9 +32,13 @@ class ControladorJogo():
         while True:
             if self.__controlador_oceano.verificar_vitoria_jogador():
                 self.__tela_jogo.mostra_mensagem("------VOCÊ VENCEU!------")
+                self.__controlador_oceano.deletar_oceano_jogador()
+                self.__controlador_oceano.deletar_oceano_computador()
                 break
             elif self.__controlador_oceano.verificar_vitoria_computador():
                 self.__tela_jogo.mostra_mensagem("------VOCÊ PERDEU!------")
+                self.__controlador_oceano.deletar_oceano_jogador()
+                self.__controlador_oceano.deletar_oceano_computador()
                 break
             else:
                 rodada += 1
@@ -49,4 +53,3 @@ class ControladorJogo():
                 tiro_computador = self.__controlador_oceano.atirar_computador()
                 self.__tela_jogo.mostra_mensagem(tiro_computador)
                 self.__controlador_oceano.mostra_oceano_jogador()
-                self.__controlador_oceano.mostra_oceano_computador()

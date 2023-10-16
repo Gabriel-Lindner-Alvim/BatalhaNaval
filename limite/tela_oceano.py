@@ -93,3 +93,7 @@ class TelaOceano():
         for linha in matriz:
             print(" ".join(linha))
         print()
+    
+    def mostra_mensagem(self, mensagem):
+        print(mensagem)
+        print()

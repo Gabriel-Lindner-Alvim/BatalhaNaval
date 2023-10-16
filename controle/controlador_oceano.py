@@ -19,7 +19,7 @@ class ControladorOceano():
         self.__embarcacoes = []
         self.__embarcacoes_comp = []
 
-    def criar_oceano_jogador(self, ):
+    def criar_oceano_jogador(self):
         tamanho = self.__tela_oceano.tamanho_oceano() + 1
         self.__tamanho = tamanho
         matriz = [['^' for c in range(tamanho)] for l in range(tamanho)]
@@ -44,7 +44,7 @@ class ControladorOceano():
                         self.__embarcacoes.append(bote)
                         aux4 = 1
                     else:
-                        print("Posição inválida. Tente novamente: ")
+                        self.__tela_oceano.mostra_mensagem("Posição inválida. Tente novamente: ")
                 if aux4 == 1:
                     break
     
@@ -65,11 +65,11 @@ class ControladorOceano():
                             self.__embarcacoes.append(submarino)
                             aux = 1
                             self.mostra_oceano_jogador()
-                            print()
+                            self.__tela_oceano.mostra_mensagem("")
                         else:
-                            print("As posições inseridas não são vizinhas. Tente novamente.")
+                            self.__tela_oceano.mostra_mensagem("As posições inseridas não são vizinhas. Tente novamente.")
                     else:
-                        print("Alguma(s) posição(ões) inválida(s). Tente novamente.")
+                        self.__tela_oceano.mostra_mensagem("Alguma(s) posição(ões) inválida(s). Tente novamente.")
                 if aux == 1:
                     break
                         
@@ -81,7 +81,6 @@ class ControladorOceano():
                 for matriz in self.__oceanos_jogador:
                     if matriz[linha_proa_fragata][coluna_proa_fragata] == '^' and matriz[linha_popa_fragata][coluna_popa_fragata] == '^':
                         if linha_proa_fragata == linha_popa_fragata:
-                            #print("Fragata na horizontal")
                             subtrai_coluna_inicial_final = abs(coluna_proa_fragata - coluna_popa_fragata)
                             if subtrai_coluna_inicial_final == 2:
                                 if coluna_proa_fragata>coluna_popa_fragata:
@@ -98,10 +97,9 @@ class ControladorOceano():
                                                        [linha_popa_fragata, coluna_popa_fragata]]
                                     self.__embarcacoes.append(fragata)
                                     self.mostra_oceano_jogador()
-                                    print()
+                                    self.__tela_oceano.mostra_mensagem("")
                                     aux2 = 1 
                         else:
-                            #print("Fragata na vertical")
                             subtrai_linha_inicial_final = abs(linha_proa_fragata-linha_popa_fragata)
                             if subtrai_linha_inicial_final == 2:
                                 if linha_proa_fragata>linha_popa_fragata:
@@ -118,10 +116,10 @@ class ControladorOceano():
                                                        [linha_popa_fragata, coluna_popa_fragata]]
                                     self.__embarcacoes.append(fragata)
                                     self.mostra_oceano_jogador()
-                                    print()
+                                    self.__tela_oceano.mostra_mensagem("")
                                     aux2 = 1
                     else:
-                        print("Posição inicial, final ou ambas indisponíveis. Tente novamente: ")
+                        self.__tela_oceano.mostra_mensagem("Posição inicial, final ou ambas indisponíveis. Tente novamente: ")
                 if aux2 == 1:
                     break
 
@@ -133,7 +131,6 @@ class ControladorOceano():
                 for matriz in self.__oceanos_jogador:
                     if matriz[linha_proa_porta_avioes][coluna_proa_porta_avioes] == '^' and matriz[linha_popa_porta_avioes][coluna_popa_porta_avioes] == '^':
                         if linha_proa_porta_avioes == linha_popa_porta_avioes:
-                            #print("Porta-aviões na horizontal")
                             subtrai_coluna_inicial_f = abs(coluna_proa_porta_avioes - coluna_popa_porta_avioes)
                             if subtrai_coluna_inicial_f == 3:
                                 if coluna_proa_porta_avioes > coluna_popa_porta_avioes:
@@ -152,10 +149,9 @@ class ControladorOceano():
                                                             [linha_popa_porta_avioes, coluna_popa_porta_avioes]]
                                     self.__embarcacoes.append(porta_aviao)
                                     self.mostra_oceano_jogador()
-                                    print()
+                                    self.__tela_oceano.mostra_mensagem("")
                                     aux3 = 1
                         else:
-                            #print("Porta-aviões na vertical")
                             subtrai_linha_inicial_f = abs(linha_proa_porta_avioes - linha_popa_porta_avioes)
                             if subtrai_linha_inicial_f == 3:
                                 if linha_proa_porta_avioes > linha_popa_porta_avioes:
@@ -174,10 +170,10 @@ class ControladorOceano():
                                                             [linha_popa_porta_avioes, coluna_popa_porta_avioes]]
                                     self.__embarcacoes.append(porta_aviao)
                                     self.mostra_oceano_jogador()
-                                    print()
+                                    self.__tela_oceano.mostra_mensagem("")
                                     aux3 = 1
                     else:
-                        print("Posição inicial, final ou ambas indisponíveis. Tente novamente: ")
+                        self.__tela_oceano.mostra_mensagem("Posição inicial, final ou ambas indisponíveis. Tente novamente: ")
                 if aux3 == 1:
                     break
         oceano = Oceano(tamanho, matriz)
@@ -304,12 +300,6 @@ class ControladorOceano():
                 if aux_comp4 == 1:
                     break
         oceano_comp = Oceano(self.__tamanho, matriz_comp)
-
-
-        for i in matriz_comp:
-            print(i)
-
-
 
     def numero_aleatorio_bote(self):
         numero_aleatorio = random.randint(1, self.__tamanho - 1)
@@ -451,6 +441,9 @@ class ControladorOceano():
         
     def deletar_oceano_computador(self):
         self.__oceanos_computador.pop(0)
+    
+    def deletar_oceano_jogador(self):
+        self.__oceanos_jogador.pop(0)
             
     def verificar_vitoria_jogador(self):
         for matriz in self.__oceanos_computador:
