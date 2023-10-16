@@ -5,7 +5,8 @@ class ControladorJogador():
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
         self.__tela_jogador = TelaJogador()
-        self.__jogadores = []
+        self.__jogadores = [Jogador("Gabriel","23052005"), Jogador("Thiago", "18112004")  ]
+        self.__pontos = 0
 
     
     @property
@@ -22,7 +23,6 @@ class ControladorJogador():
           if(j.nome == nome):
             return j
         return None
-    
 
     def incluir_jogador(self):
         nome, data = self.__tela_jogador.atribui_dados_jogador()
@@ -55,6 +55,20 @@ class ControladorJogador():
         else:
           self.__tela_jogador.mostra_mensagem("ATENÇÃO: JOGADOR INEXISTENTE")
 
+    def abre_ranking(self):
+       self.__tela_jogador.ranking(self.jogadores)
+
+    
+    def verifica_se_existe_jogador(self):
+        nome_jogador = self.__tela_jogador.seleciona_jogador()
+        jogador = self.pega_jogador_por_nome(nome_jogador)
+        if(jogador is not None):
+          
+          return True
+        else:
+          self.__tela_jogador.mostra_mensagem("\nATENÇÃO: JOGADOR INEXISTENTE")
+          return False
+    
     def retornar(self):
            self.__controlador_sistema.abre_tela()
 

@@ -1,7 +1,8 @@
 
 
+
 class Jogador:
-    def __init__(self, nome: str, nascimento: str): #adicionar pontos futuramente
+    def __init__(self, nome: str, nascimento: str):
         self.__nome = nome
         self.__nascimento =nascimento
 
