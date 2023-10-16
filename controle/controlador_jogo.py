@@ -33,9 +33,9 @@ class ControladorJogo():
             if self.__controlador_oceano.verificar_vitoria_jogador():
                 self.__tela_jogo.mostra_mensagem("------VOCÊ VENCEU!------")
                 break
-            #elif self.__controlador_oceano.verificar_vitoria_computador():
-            #    self.__tela_jogo.mostra_mensagem("------VOCÊ PERDEU!------")
-            #    break
+            elif self.__controlador_oceano.verificar_vitoria_computador():
+                self.__tela_jogo.mostra_mensagem("------VOCÊ PERDEU!------")
+                break
             else:
                 rodada += 1
                 self.__tela_jogo.mostra_mensagem(f"RODADA {rodada}")
@@ -50,13 +50,3 @@ class ControladorJogo():
                 self.__tela_jogo.mostra_mensagem(tiro_computador)
                 self.__controlador_oceano.mostra_oceano_jogador()
                 self.__controlador_oceano.mostra_oceano_computador()
-
-
-    def retornar(self):
-        self.__controlador_sistema.abre_tela()
-
-    def abre_tela_jogo(self):
-        opcoes = {1: self.partida, 0: self.retornar}
-        continua = True       
-        while continua:
-            opcoes[self.__tela_jogo.opcoes_tela()]()

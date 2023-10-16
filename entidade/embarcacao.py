@@ -4,17 +4,17 @@ from abc import ABC, abstractmethod
 class Embarcacao(ABC):
     @abstractmethod
     def __init__(self, tamanho_embarcacao: int, quantidade_embarcacao: int):
-        self.__tamanho_embracacao = tamanho_embarcacao
+        self.__tamanho_embarcacao = tamanho_embarcacao
         self.__quantidade_embarcacao = quantidade_embarcacao
 
     
     @property
     def tamanho_embarcacao(self):
-        return self.__tamanho_embracacao
+        return self.__tamanho_embarcacao
     
     @tamanho_embarcacao.setter
     def tamanho_embarcacao(self, tamanho_embarcacao):
-        self.__tamanho_embracacao = tamanho_embarcacao
+        self.__tamanho_embarcacao = tamanho_embarcacao
 
     @property
     def quantidade_embarcacao(self):

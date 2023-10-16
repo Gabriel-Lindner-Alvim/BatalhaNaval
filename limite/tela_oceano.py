@@ -57,7 +57,7 @@ class TelaOceano():
         while coluna_proa_fragata < 1: #or coluna_proa_fragata > len(matriz)
             coluna_proa_fragata = int(input("Coluna inválida. Tente Novamente"))
         
-        linha_popa_fragata = int(input("Digite a coluna da posição final da fragata: "))
+        linha_popa_fragata = int(input("Digite a linha da posição final da fragata: "))
         while linha_popa_fragata < 1: #or linha_popa_fragata > len(matriz)
             linha_popa_fragata = int(input("Linha inválida. Tente Novamente"))
 

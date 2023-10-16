@@ -1,5 +1,10 @@
 from limite.tela_oceano import TelaOceano
 from entidade.oceano import Oceano
+from entidade.embarcacao import Embarcacao
+from entidade.bote import Bote
+from entidade.submarino import Submarino
+from entidade.fragata import Fragata
+from entidade.porta_avioes import PortaAviao
 import random
 
 
@@ -10,14 +15,11 @@ class ControladorOceano():
         self.__oceanos_computador = []
         self.__tamanho = None
         self.__pontos = 0
-        self.__contadors1 = 0
-        self.__contadors2 = 0
-        self.__contadorf1 = 0
-        self.__contadorf2 = 0
-        self.__contador_porta_avioes = 0
+        self.__pontos_comp = 0
+        self.__embarcacoes = []
+        self.__embarcacoes_comp = []
 
-
-    def criar_oceano_jogador(self):
+    def criar_oceano_jogador(self, ):
         tamanho = self.__tela_oceano.tamanho_oceano() + 1
         self.__tamanho = tamanho
         matriz = [['^' for c in range(tamanho)] for l in range(tamanho)]
@@ -38,6 +40,9 @@ class ControladorOceano():
                     if matriz[linha_bote][coluna_bote] == '^':
                         matriz[linha_bote][coluna_bote] = 'B'
                         self.mostra_oceano_jogador()
+                        bote = Bote()
+                        bote.posicao = [[linha_bote, coluna_bote]]
+                        self.__embarcacoes.append(bote)
                         aux4 = 1
                     else:
                         print("Posição inválida. Tente novamente: ")
@@ -53,8 +58,12 @@ class ControladorOceano():
                         soma_linhas = abs(linha_proa_submarino - linha_popa_submarino)
                         soma_colunas = abs(coluna_proa_submarino - coluna_popa_submarino)
                         if (soma_linhas == 0 and soma_colunas == 1) or (soma_linhas == 1 and soma_colunas == 0):
-                            matriz[linha_proa_submarino][coluna_proa_submarino] = f'S{i}'
-                            matriz[linha_popa_submarino][coluna_popa_submarino] = f'S{i}'
+                            matriz[linha_proa_submarino][coluna_proa_submarino] = 'S'
+                            matriz[linha_popa_submarino][coluna_popa_submarino] = 'S'
+                            submarino = Submarino()
+                            submarino.posicao = [[linha_proa_submarino, coluna_proa_submarino],
+                                                 [linha_popa_submarino, coluna_popa_submarino]]
+                            self.__embarcacoes.append(submarino)
                             aux = 1
                             self.mostra_oceano_jogador()
                             print()
@@ -81,13 +90,17 @@ class ControladorOceano():
                                 else:
                                     maior = coluna_popa_fragata
                                 if matriz[linha_proa_fragata][maior-1] == '^':
-                                    matriz[linha_proa_fragata][coluna_proa_fragata] = f'F{i}'
-                                    matriz[linha_proa_fragata][maior-1] = f'F{i}'
-                                    matriz[linha_popa_fragata][coluna_popa_fragata] = f'F{i}'
+                                    matriz[linha_proa_fragata][coluna_proa_fragata] = 'F'
+                                    matriz[linha_proa_fragata][maior-1] = 'F'
+                                    matriz[linha_popa_fragata][coluna_popa_fragata] = 'F'
+                                    fragata = Fragata()
+                                    fragata.posicao = [[linha_proa_fragata, coluna_proa_fragata],
+                                                       [linha_proa_fragata, maior-1],
+                                                       [linha_popa_fragata, coluna_popa_fragata]]
+                                    self.__embarcacoes.append(fragata)
                                     self.mostra_oceano_jogador()
                                     print()
                                     aux2 = 1 
-                                
                         else:
                             #print("Fragata na vertical")
                             subtrai_linha_inicial_final = abs(linha_proa_fragata-linha_popa_fragata)
@@ -97,9 +110,14 @@ class ControladorOceano():
                                 else:
                                     maior = linha_popa_fragata
                                 if matriz[maior-1][coluna_proa_fragata] == '^':
-                                    matriz[linha_proa_fragata][coluna_proa_fragata] = f'F{i}'
-                                    matriz[maior-1][coluna_proa_fragata] = f'F{i}'
-                                    matriz[linha_popa_fragata][coluna_popa_fragata] = f'F{i}'
+                                    matriz[linha_proa_fragata][coluna_proa_fragata] = 'F'
+                                    matriz[maior-1][coluna_proa_fragata] = 'F'
+                                    matriz[linha_popa_fragata][coluna_popa_fragata] = 'F'
+                                    fragata = Fragata()
+                                    fragata.posicao = [[linha_proa_fragata, coluna_proa_fragata],
+                                                       [maior-1, coluna_proa_fragata],
+                                                       [linha_popa_fragata, coluna_popa_fragata]]
+                                    self.__embarcacoes.append(fragata)
                                     self.mostra_oceano_jogador()
                                     print()
                                     aux2 = 1
@@ -128,6 +146,12 @@ class ControladorOceano():
                                     matriz[linha_proa_porta_avioes][maiorzao-1] = 'A'
                                     matriz[linha_proa_porta_avioes][maiorzao-2] = 'A'
                                     matriz[linha_popa_porta_avioes][coluna_popa_porta_avioes] = 'A'
+                                    porta_aviao = PortaAviao()
+                                    porta_aviao.posicao = [[linha_proa_porta_avioes, coluna_proa_porta_avioes],
+                                                            [linha_proa_porta_avioes, maiorzao-1],
+                                                            [linha_proa_porta_avioes, maiorzao-2],
+                                                            [linha_popa_porta_avioes, coluna_popa_porta_avioes]]
+                                    self.__embarcacoes.append(porta_aviao)
                                     self.mostra_oceano_jogador()
                                     print()
                                     aux3 = 1
@@ -144,6 +168,12 @@ class ControladorOceano():
                                     matriz[maiorzao-1][coluna_proa_porta_avioes] = 'A'
                                     matriz[maiorzao-2][coluna_proa_porta_avioes] = 'A'
                                     matriz[linha_popa_porta_avioes][coluna_popa_porta_avioes] = 'A'
+                                    porta_aviao = PortaAviao()
+                                    porta_aviao.posicao = [[linha_proa_porta_avioes, coluna_proa_porta_avioes],
+                                                            [maiorzao-1, coluna_proa_porta_avioes],
+                                                            [maiorzao-2, coluna_proa_porta_avioes],
+                                                            [linha_popa_porta_avioes, coluna_popa_porta_avioes]]
+                                    self.__embarcacoes.append(porta_aviao)
                                     self.mostra_oceano_jogador()
                                     print()
                                     aux3 = 1
@@ -151,7 +181,6 @@ class ControladorOceano():
                         print("Posição inicial, final ou ambas indisponíveis. Tente novamente: ")
                 if aux3 == 1:
                     break
-
     
     def criar_oceano_computador(self):
         matriz_comp = [['^' for c in range(self.__tamanho)] for l in range(self.__tamanho)]
@@ -169,6 +198,9 @@ class ControladorOceano():
                 num_cb = self.numero_aleatorio_bote()
                 if matriz_comp[num_lb][num_cb] == '^':
                     matriz_comp[num_lb][num_cb] = 'B'
+                    bote_comp = Bote()
+                    bote_comp.posicao = [[num_lb, num_cb]]
+                    self.__embarcacoes_comp.append(bote_comp)
                     aux_comp1 = 1
                 if aux_comp1 == 1:
                     break
@@ -186,12 +218,18 @@ class ControladorOceano():
                         listax.append(2)
                     escolha = random.choice(listax)
                     if escolha == 1:
-                        matriz_comp[num_ls][num_cs] = f'S{i}'
-                        matriz_comp[num_ls][num_cs + 1] = f'S{i}'
+                        matriz_comp[num_ls][num_cs] = 'S'
+                        matriz_comp[num_ls][num_cs + 1] = 'S'
+                        submarino_comp = Submarino()
+                        submarino_comp.posicao = [[num_ls, num_cs],[num_ls, num_cs +1]]
+                        self.__embarcacoes_comp.append(submarino_comp)
                         aux_comp2 = 1
                     elif escolha == 2:
-                        matriz_comp[num_ls][num_cs] = f'S{i}'
-                        matriz_comp[num_ls - 1][num_cs] = f'S{i}'
+                        matriz_comp[num_ls][num_cs] = 'S'
+                        matriz_comp[num_ls - 1][num_cs] = 'S'
+                        submarino_comp = Submarino()
+                        submarino_comp.posicao = [[num_ls, num_cs],[num_ls - 1, num_cs]]
+                        self.__embarcacoes_comp.append(submarino_comp)
                         aux_comp2 = 1
                 if aux_comp2 == 1:
                     break
@@ -209,14 +247,20 @@ class ControladorOceano():
                         listaf.append(2)
                     escolha = random.choice(listaf)
                     if escolha == 1:
-                        matriz_comp[num_lf][num_cf] = f'F{i}'
-                        matriz_comp[num_lf][num_cf + 1] = f'F{i}'
-                        matriz_comp[num_lf][num_cf + 2] = f'F{i}'
+                        matriz_comp[num_lf][num_cf] = 'F'
+                        matriz_comp[num_lf][num_cf + 1] = 'F'
+                        matriz_comp[num_lf][num_cf + 2] = 'F'
+                        fragata_comp = Fragata()
+                        fragata_comp.posicao = [[num_lf, num_cf],[num_lf, num_cf + 1],[num_lf, num_cf + 2]]
+                        self.__embarcacoes_comp.append(fragata_comp)
                         aux_comp3 = 1
                     elif escolha == 2:
-                        matriz_comp[num_lf][num_cf] = f'F{i}'
-                        matriz_comp[num_lf - 1][num_cf] = f'F{i}'
-                        matriz_comp[num_lf - 2][num_cf] = f'F{i}'
+                        matriz_comp[num_lf][num_cf] = 'F'
+                        matriz_comp[num_lf - 1][num_cf] = 'F'
+                        matriz_comp[num_lf - 2][num_cf] = 'F'
+                        fragata_comp = Fragata()
+                        fragata_comp.posicao = [[num_lf, num_cf],[num_lf - 1, num_cf],[num_lf - 2, num_cf]]
+                        self.__embarcacoes_comp.append(fragata_comp)
                         aux_comp3 = 1
                 if aux_comp3 == 1:
                     break
@@ -238,12 +282,24 @@ class ControladorOceano():
                         matriz_comp[num_lp][num_cp + 1] = 'A'
                         matriz_comp[num_lp][num_cp + 2] = 'A'
                         matriz_comp[num_lp][num_cp + 3] = 'A'
+                        porta_aviao_comp = PortaAviao()
+                        porta_aviao_comp.posicao = [[num_lp, num_cp],
+                                                    [num_lp, num_cp + 1],
+                                                    [num_lp, num_cp + 2],
+                                                    [num_lp, num_cp + 3]]
+                        self.__embarcacoes_comp.append(porta_aviao_comp)
                         aux_comp4 = 1
                     elif escolha == 2:
                         matriz_comp[num_lp][num_cp] = 'A'
                         matriz_comp[num_lp - 1][num_cp] = 'A'
                         matriz_comp[num_lp - 2][num_cp] = 'A'
                         matriz_comp[num_lp - 3][num_cp] = 'A'
+                        porta_aviao_comp = PortaAviao()
+                        porta_aviao_comp.posicao = [[num_lp, num_cp],
+                                                    [num_lp - 1, num_cp],
+                                                    [num_lp - 2, num_cp],
+                                                    [num_lp - 3, num_cp]]
+                        self.__embarcacoes_comp.append(porta_aviao_comp)
                         aux_comp4 = 1
                 if aux_comp4 == 1:
                     break
@@ -295,85 +351,115 @@ class ControladorOceano():
         return self.__tamanho
     
     def atirar(self, linha_tiro, coluna_tiro):
+        lista_posicoes = [linha_tiro, coluna_tiro]
         for matriz in self.__oceanos_computador:
-            if matriz[linha_tiro][coluna_tiro] == 'B':
-                matriz[linha_tiro][coluna_tiro] = 'X'
-                self.__pontos += 4
-                return "Você afundou um Bote! (+4 pontos))"
+            for embarcacao in self.__embarcacoes_comp:
+                for pos in embarcacao.posicao:
+                    if lista_posicoes == pos and matriz[linha_tiro][coluna_tiro] == 'B':
+                        matriz[linha_tiro][coluna_tiro] = 'X'
+                        embarcacao.posicao.remove(pos)
+                        self.__pontos += 4
+                        return "Você afundou um Bote! (+4 pontos)"
 
-            elif matriz[linha_tiro][coluna_tiro] == 'S1':
-                matriz[linha_tiro][coluna_tiro] = 'X'
-                self.__contadors1 += 1
-                if self.__contadors1 == 2:
-                    self.__pontos += 4
-                    return 'Você afundou um submarino (+4 pontos)'
-                self.__pontos += 1
-                return 'Você atingiu um submarino! (+1 ponto)'
+                    elif lista_posicoes == pos and matriz[linha_tiro][coluna_tiro] == 'S':
+                        matriz[linha_tiro][coluna_tiro] = 'X'
+                        if len(embarcacao.posicao) == 1:
+                            embarcacao.posicao.remove(pos)
+                            self.__pontos += 4
+                            return "Você afundou um Submarino! (+4 pontos)"
+                        else:
+                            embarcacao.posicao.remove(pos)
+                            self.__pontos += 1
+                            return "Você atingiu um Submarino! (+1 ponto)"
 
-            elif matriz[linha_tiro][coluna_tiro] == 'S2':
-                matriz[linha_tiro][coluna_tiro] = 'X'
-                self.__contadors2 += 1
-                if self.__contadors2 == 2:
-                    self.__pontos += 4
-                    return 'Você afundou um submarino (+4 pontos)'
-                self.__pontos += 1
-                return 'Você atingiu um submarino! (+1 ponto)'
+                    elif lista_posicoes == pos and matriz[linha_tiro][coluna_tiro] == 'F':
+                        matriz[linha_tiro][coluna_tiro] = 'X'
+                        if len(embarcacao.posicao) == 1:
+                            embarcacao.posicao.remove(pos)
+                            self.__pontos += 4
+                            return "Você afundou uma Fragata! (+4 pontos)"
+                        else:
+                            embarcacao.posicao.remove(pos)
+                            self.__pontos += 1
+                            return "Você atingiu uma Fragata! (+1 ponto)"
 
-            elif matriz[linha_tiro][coluna_tiro] == 'F1':
-                matriz[linha_tiro][coluna_tiro] = 'X'
-                self.__contadorf1 += 1
-                if self.__contadorf1 == 3:
-                    self.__pontos += 4
-                    return 'Você afundou uma fragata (+4 pontos)'
-                self.__pontos += 1
-                return 'Você atingiu uma fragata! (+1 ponto)'
+                    elif lista_posicoes == pos and matriz[linha_tiro][coluna_tiro] == 'A':
+                        matriz[linha_tiro][coluna_tiro] = 'X'
+                        if len(embarcacao.posicao) == 1:
+                            embarcacao.posicao.remove(pos)
+                            self.__pontos += 4
+                            return "Você afundou um Porta-Aviões! (+4 pontos)"
+                        else:
+                            embarcacao.posicao.remove(pos)
+                            self.__pontos += 1
+                            return "Você atingiu um Porta-Aviões! (+1 ponto)"
 
-            elif matriz[linha_tiro][coluna_tiro] == 'F2':
-                matriz[linha_tiro][coluna_tiro] = 'X'
-                self.__contadorf2 += 1
-                if self.__contadorf2 == 3:
-                    self.__pontos += 4
-                    return 'Você afundou uma fragata (+4 pontos)'
-                self.__pontos += 1
-                return 'Você atingiu uma fragata! (+1 ponto)'
+            matriz[linha_tiro][coluna_tiro] = 'X'
+            return "Você não acertou embarcações!"
 
-            elif matriz[linha_tiro][coluna_tiro] == 'A':
-                matriz[linha_tiro][coluna_tiro] = 'X'
-                self.__contador_porta_avioes += 1
-                if self.__contador_porta_avioes == 4:
-                    self.__pontos += 4
-                    return "Você afundou o Porta-Aviões! (+4 ponto)"
-                self.__pontos += 1
-                return "Você atingiu o Porta-Aviões! (+1 ponto)"
 
-            else:
-                matriz[linha_tiro][coluna_tiro] = 'X'
-                return "Você não atingiu uma embarcação!"
-    
     def atirar_computador(self):
         linha_tiro = random.randint(1, self.__tamanho - 1)
         coluna_tiro = random.randint(1, self.__tamanho - 1)
+        lista_posicoes_comp = [linha_tiro, coluna_tiro]
         for matriz in self.__oceanos_jogador:
-            if matriz[linha_tiro][coluna_tiro] == 'B':
-                matriz[linha_tiro][coluna_tiro] = 'X'
-                return "O computador afundou um Bote!"
-            elif matriz[linha_tiro][coluna_tiro] == 'S1' or matriz[linha_tiro][coluna_tiro] == 'S2':
-                matriz[linha_tiro][coluna_tiro] = 'X'
-                return "O computador atingiu um Submarino!"
-            elif matriz[linha_tiro][coluna_tiro] == 'F':
-                matriz[linha_tiro][coluna_tiro] = 'X'
-                return "O computador atingiu uma Fragata!"
-            elif matriz[linha_tiro][coluna_tiro] == 'A':
-                matriz[linha_tiro][coluna_tiro] = 'X'
-                return "O computador atingiu o Porta-Aviões!"
-            else:
-                matriz[linha_tiro][coluna_tiro] = 'X'
-                return "O computador não atingiu uma embarcação!"
-    
+            for embarcacao in self.__embarcacoes_comp:
+                for pos in embarcacao.posicao:
+                    if lista_posicoes_comp == pos and matriz[linha_tiro][coluna_tiro] == 'B':
+                        matriz[linha_tiro][coluna_tiro] = 'X'
+                        embarcacao.posicao.remove(pos)
+                        self.__pontos_comp += 4
+                        return "O computador afundou um Bote! (+4 pontos)"
+
+                    elif lista_posicoes_comp == pos and matriz[linha_tiro][coluna_tiro] == 'S':
+                        matriz[linha_tiro][coluna_tiro] = 'X'
+                        if len(embarcacao.posicao) == 1:
+                            embarcacao.posicao.remove(pos)
+                            self.__pontos_comp += 4
+                            return "O computador afundou um Submarino! (+4 pontos)"
+                        else:
+                            embarcacao.posicao.remove(pos)
+                            self.__pontos_comp += 1
+                            return "O computador atingiu um Submarino! (+1 ponto)"
+
+                    elif lista_posicoes_comp == pos and matriz[linha_tiro][coluna_tiro] == 'F':
+                        matriz[linha_tiro][coluna_tiro] = 'X'
+                        if len(embarcacao.posicao) == 1:
+                            embarcacao.posicao.remove(pos)
+                            self.__pontos_comp += 4
+                            return "O computador afundou uma Fragata! (+4 pontos)"
+                        else:
+                            embarcacao.posicao.remove(pos)
+                            self.__pontos_comp += 1
+                            return "O computador atingiu uma Fragata! (+1 ponto)"
+
+                    elif lista_posicoes_comp == pos and matriz[linha_tiro][coluna_tiro] == 'A':
+                        matriz[linha_tiro][coluna_tiro] = 'X'
+                        if len(embarcacao.posicao) == 1:
+                            embarcacao.posicao.remove(pos)
+                            self.__pontos_comp += 4
+                            return "O computador afundou um Porta-Aviões! (+4 pontos)"
+                        else:
+                            embarcacao.posicao.remove(pos)
+                            self.__pontos_comp += 1
+                            return "O computador atingiu um Porta-Aviões! (+1 ponto)"
+
+            matriz[linha_tiro][coluna_tiro] = 'X'
+            return "O computador não acertou embarcações!"
+        
     def deletar_oceano_computador(self):
         self.__oceanos_computador.pop(0)
-
+            
     def verificar_vitoria_jogador(self):
-            if self.__pontos != 41:
-                return False
-            return True
+        if self.__pontos != 41:
+            return False
+        self.__pontos = 0
+        self.__pontos_comp = 0
+        return True
+
+    def verificar_vitoria_computador(self):
+        if self.__pontos_comp != 41:
+            return False
+        self.__pontos = 0
+        self.__pontos_comp = 0
+        return True
