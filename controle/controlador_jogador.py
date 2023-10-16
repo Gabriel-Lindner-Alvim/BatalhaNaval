@@ -61,9 +61,10 @@ class ControladorJogador():
         nome_jogador = self.__tela_jogador.seleciona_jogador()
         jogador = self.pega_jogador_por_nome(nome_jogador)
         if(jogador is not None):
+          
           return True
         else:
-          self.__tela_jogador.mostra_mensagem("ATENÇÃO: JOGADOR INEXISTENTE")
+          self.__tela_jogador.mostra_mensagem("\nATENÇÃO: JOGADOR INEXISTENTE")
           return False
     
     def retornar(self):
