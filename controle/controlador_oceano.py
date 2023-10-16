@@ -30,8 +30,7 @@ class ControladorOceano():
         for i in range(1, tamanho):
             matriz[i][0] = str(i)
         self.__oceanos_jogador.append(matriz)
-        #oceano = Oceano(tamanho, matriz)
-
+        
         for i in range(1, 4):
             while True:
                 aux4 = 0
@@ -181,6 +180,7 @@ class ControladorOceano():
                         print("Posição inicial, final ou ambas indisponíveis. Tente novamente: ")
                 if aux3 == 1:
                     break
+        oceano = Oceano(tamanho, matriz)
     
     def criar_oceano_computador(self):
         matriz_comp = [['^' for c in range(self.__tamanho)] for l in range(self.__tamanho)]
@@ -303,6 +303,8 @@ class ControladorOceano():
                         aux_comp4 = 1
                 if aux_comp4 == 1:
                     break
+        oceano_comp = Oceano(self.__tamanho, matriz_comp)
+
 
         for i in matriz_comp:
             print(i)
@@ -451,15 +453,17 @@ class ControladorOceano():
         self.__oceanos_computador.pop(0)
             
     def verificar_vitoria_jogador(self):
-        if self.__pontos != 41:
-            return False
-        self.__pontos = 0
-        self.__pontos_comp = 0
-        return True
+        for matriz in self.__oceanos_computador:
+            for linha in matriz:
+                for coluna in linha:
+                    if coluna == 'B' or coluna == 'S' or coluna == 'F' or coluna == 'A':
+                        return False
+            return True
 
     def verificar_vitoria_computador(self):
-        if self.__pontos_comp != 41:
-            return False
-        self.__pontos = 0
-        self.__pontos_comp = 0
-        return True
+        for matriz in self.__oceanos_jogador:
+            for linha in matriz:
+                for coluna in linha:
+                    if coluna == 'B' or coluna == 'S' or coluna == 'F' or coluna == 'A':
+                        return False
+            return True

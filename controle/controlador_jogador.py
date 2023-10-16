@@ -1,7 +1,6 @@
 from limite.tela_jogador import TelaJogador
 from entidade.Jogador import Jogador
 
-
 class ControladorJogador():
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
@@ -55,6 +54,9 @@ class ControladorJogador():
           self.__jogadores.remove(jogador)
         else:
           self.__tela_jogador.mostra_mensagem("ATENÇÃO: JOGADOR INEXISTENTE")
+
+    def abre_ranking(self):
+       self.__tela_jogador.ranking(self.jogadores)
 
     
     def verifica_se_existe_jogador(self):
