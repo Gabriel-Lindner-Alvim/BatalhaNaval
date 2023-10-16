@@ -6,7 +6,6 @@ class ControladorJogador():
         self.__controlador_sistema = controlador_sistema
         self.__tela_jogador = TelaJogador()
         self.__jogadores = [Jogador("Gabriel","23052005"), Jogador("Thiago", "18112004")  ]
-        self.__pontos = 0
 
     
     @property
